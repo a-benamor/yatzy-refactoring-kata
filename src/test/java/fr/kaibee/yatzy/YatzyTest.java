@@ -7,11 +7,11 @@ import static org.junit.Assert.*;
 public class YatzyTest {
 
     @Test
-    public void chance_scores_sum_of_all_dice() {
+    public void should_score_sum_of_all_dices_when_is_placed_on_chances() {
         int expected = 15;
-        int actual = Yatzy.chance(2, 3, 4, 5, 1);
+        int actual = new Yatzy(2, 3, 4, 5, 1).chance();
         assertEquals(expected, actual);
-        assertEquals(16, Yatzy.chance(3, 3, 4, 5, 1));
+        assertEquals(16, new Yatzy(3, 3, 4, 5, 1).chance());
     }
 
     @Test
@@ -82,13 +82,14 @@ public class YatzyTest {
         assertEquals(9, Yatzy.three_of_a_kind(3, 3, 3, 4, 5));
         assertEquals(15, Yatzy.three_of_a_kind(5, 3, 5, 4, 5));
         assertEquals(9, Yatzy.three_of_a_kind(3, 3, 3, 3, 5));
+        assertEquals(9, Yatzy.three_of_a_kind(3, 3, 3, 3, 3));
+
     }
 
     @Test
     public void four_of_a_knd() {
         assertEquals(12, Yatzy.four_of_a_kind(3, 3, 3, 3, 5));
         assertEquals(20, Yatzy.four_of_a_kind(5, 5, 5, 4, 5));
-        assertEquals(9, Yatzy.three_of_a_kind(3, 3, 3, 3, 3));
     }
 
     @Test

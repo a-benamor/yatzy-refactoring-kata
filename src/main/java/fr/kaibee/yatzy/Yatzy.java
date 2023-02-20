@@ -1,15 +1,21 @@
 package fr.kaibee.yatzy;
 
-public class Yatzy {
+import java.util.Arrays;
 
-    public static int chance(int d1, int d2, int d3, int d4, int d5) {
-        int total = 0;
-        total += d1;
-        total += d2;
-        total += d3;
-        total += d4;
-        total += d5;
-        return total;
+public class Yatzy {
+    private int[] dice;
+
+    public Yatzy(int d1, int d2, int d3, int d4, int d5) {
+        dice = new int[5];
+        dice[0] = d1;
+        dice[1] = d2;
+        dice[2] = d3;
+        dice[3] = d4;
+        dice[4] = d5;
+    }
+
+    public int chance() {
+        return Arrays.stream(dice).sum();
     }
 
     public static int yatzy(int... dice) {
@@ -53,17 +59,6 @@ public class Yatzy {
         if (d4 == 3) s += 3;
         if (d5 == 3) s += 3;
         return s;
-    }
-
-    protected int[] dice;
-
-    public Yatzy(int d1, int d2, int d3, int d4, int _5) {
-        dice = new int[5];
-        dice[0] = d1;
-        dice[1] = d2;
-        dice[2] = d3;
-        dice[3] = d4;
-        dice[4] = _5;
     }
 
     public int fours() {
