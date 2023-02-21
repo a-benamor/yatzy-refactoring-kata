@@ -110,10 +110,10 @@ public class YatzyTest {
     }
 
     @Test
-    public void largeStraight() {
-        assertEquals(20, Yatzy.largeStraight(6, 2, 3, 4, 5));
-        assertEquals(20, Yatzy.largeStraight(2, 3, 4, 5, 6));
-        assertEquals(0, Yatzy.largeStraight(1, 2, 2, 4, 5));
+    public void should_score_sum_of_all_dice_when_it_is_placed_on_large_straight() {
+        assertEquals(20, new Yatzy(6, 2, 3, 4, 5).scoreLargeStraight());
+        assertEquals(20, new Yatzy(2, 3, 4, 5, 6).scoreLargeStraight());
+        assertEquals(0, new Yatzy(1, 2, 2, 4, 5).scoreLargeStraight());
     }
 
     @Test

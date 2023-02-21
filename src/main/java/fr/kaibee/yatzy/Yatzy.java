@@ -96,21 +96,8 @@ public class Yatzy {
         return isSmallStraight() ? 15 : 0;
     }
 
-    public static int largeStraight(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies;
-        tallies = new int[6];
-        tallies[d1 - 1] += 1;
-        tallies[d2 - 1] += 1;
-        tallies[d3 - 1] += 1;
-        tallies[d4 - 1] += 1;
-        tallies[d5 - 1] += 1;
-        if (tallies[1] == 1 &&
-                tallies[2] == 1 &&
-                tallies[3] == 1 &&
-                tallies[4] == 1
-                && tallies[5] == 1)
-            return 20;
-        return 0;
+    public int scoreLargeStraight() {
+        return isLargeStraight() ? 20 : 0;
     }
 
     public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {
@@ -174,6 +161,10 @@ public class Yatzy {
 
     private boolean isSmallStraight() {
         return Arrays.stream(occurrences).limit(5).allMatch(occ -> occ == 1);
+    }
+
+    private boolean isLargeStraight() {
+        return Arrays.stream(occurrences).skip(1).allMatch(occ -> occ == 1);
     }
 }
 
