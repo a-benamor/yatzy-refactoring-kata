@@ -18,11 +18,11 @@ public class Yatzy {
     }
 
     public int chance() {
-        return Arrays.stream(dice).sum();
+        return getSumOfAllDice();
     }
 
     public int yatzy() {
-        return isAllDiceHaveTheSameNumber(occurrences) ? 50 : 0;
+        return isAllDiceHaveTheSameNumber() ? 50 : 0;
     }
 
     public int ones() {
@@ -93,45 +93,18 @@ public class Yatzy {
     }
 
     public int scoreSmallStraight() {
-        return isSmallStraight() ? 15 : 0;
+        return isSmallStraight() ? getSumOfAllDice() : 0;
     }
 
     public int scoreLargeStraight() {
-        return isLargeStraight() ? 20 : 0;
+        return isLargeStraight() ? getSumOfAllDice() : 0;
     }
 
-    public static int fullHouse(int d1, int d2, int d3, int d4, int d5) {
-        int[] tallies;
-        boolean _2 = false;
-        int i;
-        int _2_at = 0;
-        boolean _3 = false;
-        int _3_at = 0;
+    public int scoreFullHouse() {
+        boolean isTwoOfKind = Arrays.stream(this.occurrences).anyMatch(occ -> occ == 2);
+        boolean isThreeOfKind = Arrays.stream(this.occurrences).anyMatch(occ -> occ == 3);
 
-
-        tallies = new int[6];
-        tallies[d1 - 1] += 1;
-        tallies[d2 - 1] += 1;
-        tallies[d3 - 1] += 1;
-        tallies[d4 - 1] += 1;
-        tallies[d5 - 1] += 1;
-
-        for (i = 0; i != 6; i += 1)
-            if (tallies[i] == 2) {
-                _2 = true;
-                _2_at = i + 1;
-            }
-
-        for (i = 0; i != 6; i += 1)
-            if (tallies[i] == 3) {
-                _3 = true;
-                _3_at = i + 1;
-            }
-
-        if (_2 && _3)
-            return _2_at * 2 + _3_at * 3;
-        else
-            return 0;
+        return (isTwoOfKind && isThreeOfKind) ? getSumOfAllDice() : 0;
     }
 
     private int[] computeOccurrences() {
@@ -143,8 +116,12 @@ public class Yatzy {
         return occurrencesTmp;
     }
 
-    private boolean isAllDiceHaveTheSameNumber(int[] occurrences) {
-        return Arrays.stream(occurrences).anyMatch(occ -> occ == 5);
+    private int getSumOfAllDice() {
+        return Arrays.stream(dice).sum();
+    }
+
+    private boolean isAllDiceHaveTheSameNumber() {
+        return Arrays.stream(this.occurrences).anyMatch(occ -> occ == 5);
     }
 
     private int getScoreByCategory(int category) {

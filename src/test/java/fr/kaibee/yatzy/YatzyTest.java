@@ -117,8 +117,9 @@ public class YatzyTest {
     }
 
     @Test
-    public void fullHouse() {
-        assertEquals(18, Yatzy.fullHouse(6, 2, 2, 2, 6));
-        assertEquals(0, Yatzy.fullHouse(2, 3, 4, 5, 6));
+    public void should_score_sum_of_all_dice_when_the_dice_are_two_and_three_of_kind_and_placed_on_fullHouse() {
+        assertEquals(18, new Yatzy(6, 2, 2, 2, 6).scoreFullHouse());
+        assertEquals(0, new Yatzy(2, 2, 3, 3, 4).scoreFullHouse());
+        assertEquals(0, new Yatzy(4, 4, 4, 4, 4).scoreFullHouse());
     }
 }
