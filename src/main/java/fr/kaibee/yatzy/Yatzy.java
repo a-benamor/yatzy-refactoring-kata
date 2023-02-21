@@ -1,8 +1,10 @@
 package fr.kaibee.yatzy;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class Yatzy {
+    private static final int DIE_IS_NOT_ROLLED = -1;
     private int[] dice;
     private int[] occurrences;
 
@@ -73,23 +75,15 @@ public class Yatzy {
     }
 
     public int scoreThreeOfKind() {
-        for (int i = 0; i < this.occurrences.length; i++) {
-            if (this.occurrences[i] >= 3) {
-                return (i + 1) * 3;
-            }
-        }
+        int die = getDieByNbOfOccurrence(3);
 
-        return 0;
+        return isDieWasRolled(die) ? (die + 1) * 3 : 0;
     }
 
     public int scoreFourOfKind() {
-        for (int i = 0; i < occurrences.length; i++) {
-            if (occurrences[i] >= 4) {
-                return (i + 1) * 4;
-            }
-        }
+        int die = getDieByNbOfOccurrence(4);
 
-        return 0;
+        return isDieWasRolled(die) ? (die + 1) * 4 : 0;
     }
 
     public int scoreSmallStraight() {
@@ -134,6 +128,17 @@ public class Yatzy {
 
     private boolean isPlayerHasTwoPairsOfDiceWithTheSameNumber(int numberOfMatchingPairs) {
         return numberOfMatchingPairs == 2;
+    }
+
+    private int getDieByNbOfOccurrence(int nbOfOcc) {
+        return IntStream.range(0, this.occurrences.length)
+                .filter(occ -> this.occurrences[occ] >= nbOfOcc)
+                .findFirst()
+                .orElse(DIE_IS_NOT_ROLLED);
+    }
+
+    private boolean isDieWasRolled(int die) {
+        return die != DIE_IS_NOT_ROLLED;
     }
 
     private boolean isSmallStraight() {
