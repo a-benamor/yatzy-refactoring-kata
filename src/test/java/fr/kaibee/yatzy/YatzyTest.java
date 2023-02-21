@@ -35,12 +35,14 @@ public class YatzyTest {
     public void should_score_the_sum_of_dice_that_read_two() {
         assertEquals(4, new Yatzy(1, 2, 3, 2, 6).twos());
         assertEquals(10, new Yatzy(2, 2, 2, 2, 2).twos());
+        assertEquals(0, new Yatzy(1, 5, 3, 4, 5).twos());
     }
 
     @Test
     public void should_score_the_sum_of_dice_that_read_three() {
         assertEquals(6, new Yatzy(1, 2, 3, 2, 3).threes());
         assertEquals(12, new Yatzy(2, 3, 3, 3, 3).threes());
+        assertEquals(0, new Yatzy(2, 5, 4, 6, 1).threes());
     }
 
     @Test
@@ -48,6 +50,7 @@ public class YatzyTest {
         assertEquals(12, new Yatzy(4, 4, 4, 5, 5).fours());
         assertEquals(8, new Yatzy(4, 4, 5, 5, 5).fours());
         assertEquals(4, new Yatzy(4, 5, 5, 5, 5).fours());
+        assertEquals(0, new Yatzy(5, 2, 3, 1, 5).fours());
     }
 
     @Test
@@ -55,6 +58,7 @@ public class YatzyTest {
         assertEquals(10, new Yatzy(4, 4, 4, 5, 5).fives());
         assertEquals(15, new Yatzy(4, 4, 5, 5, 5).fives());
         assertEquals(20, new Yatzy(4, 5, 5, 5, 5).fives());
+        assertEquals(0, new Yatzy(4, 3, 2, 6, 6).fives());
     }
 
     @Test
@@ -70,12 +74,15 @@ public class YatzyTest {
         assertEquals(10, new Yatzy(5, 3, 3, 3, 5).scorePair());
         assertEquals(12, new Yatzy(5, 3, 6, 6, 5).scorePair());
         assertEquals(12, new Yatzy(5, 6, 6, 6, 5).scorePair());
+        assertEquals(0, new Yatzy(2, 1, 3, 6, 5).scorePair());
     }
 
     @Test
-    public void two_Pair() {
-        assertEquals(16, Yatzy.two_pair(3, 3, 5, 4, 5));
-        assertEquals(16, Yatzy.two_pair(3, 3, 5, 5, 5));
+    public void should_score_sum_of_dice_of_two_pairs_with_same_number_when_placed_on_two_pairs() {
+        assertEquals(16, new Yatzy(3, 3, 5, 4, 5).scoreTwoPairs());
+        assertEquals(16, new Yatzy(3, 3, 5, 5, 5).scoreTwoPairs());
+        assertEquals(0, new Yatzy(1, 2, 3, 1, 4).scoreTwoPairs());
+        assertEquals(0, new Yatzy(3, 3, 1, 3, 3).scoreTwoPairs());
     }
 
     @Test

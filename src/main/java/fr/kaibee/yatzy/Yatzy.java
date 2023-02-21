@@ -51,7 +51,7 @@ public class Yatzy {
 
     public int scorePair() {
         for (int i = this.occurrences.length - 1; i > 0; i--) {
-            if (isPlayerScoredOnePairOfMatchingDice(i)) {
+            if (isPlayerHasAPairOfMatchingDiceAt(i)) {
                 return (i + 1) * 2;
             }
         }
@@ -59,24 +59,17 @@ public class Yatzy {
         return 0;
     }
 
-    public static int two_pair(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = new int[6];
-        counts[d1 - 1]++;
-        counts[d2 - 1]++;
-        counts[d3 - 1]++;
-        counts[d4 - 1]++;
-        counts[d5 - 1]++;
-        int n = 0;
+    public int scoreTwoPairs() {
+        int numberOfMatchingPairs = 0;
         int score = 0;
-        for (int i = 0; i < 6; i += 1)
-            if (counts[6 - i - 1] >= 2) {
-                n++;
-                score += (6 - i);
+        for (int i = 0; i < this.occurrences.length; i++) {
+            if (isPlayerHasAPairOfMatchingDiceAt(i)) {
+                numberOfMatchingPairs++;
+                score += (i + 1) * 2;
             }
-        if (n == 2)
-            return score * 2;
-        else
-            return 0;
+        }
+
+        return isPlayerHasTwoPairsOfDiceWithTheSameNumber(numberOfMatchingPairs) ? score : 0;
     }
 
     public static int four_of_a_kind(int _1, int _2, int d3, int d4, int d5) {
@@ -192,8 +185,12 @@ public class Yatzy {
         return Arrays.stream(dice).filter(die -> die == category).sum();
     }
 
-    private boolean isPlayerScoredOnePairOfMatchingDice(int i) {
-        return this.occurrences[i] >= 2;
+    private boolean isPlayerHasAPairOfMatchingDiceAt(int occ) {
+        return this.occurrences[occ] >= 2;
+    }
+
+    private boolean isPlayerHasTwoPairsOfDiceWithTheSameNumber(int numberOfMatchingPairs) {
+        return numberOfMatchingPairs == 2;
     }
 }
 
