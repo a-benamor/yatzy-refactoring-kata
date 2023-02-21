@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 public class Yatzy {
     private int[] dice;
+    private int[] occurrences;
 
     public Yatzy(int d1, int d2, int d3, int d4, int d5) {
         dice = new int[5];
@@ -12,6 +13,8 @@ public class Yatzy {
         dice[2] = d3;
         dice[3] = d4;
         dice[4] = d5;
+
+        this.occurrences = computeOccurrences();
     }
 
     public int chance() {
@@ -19,8 +22,6 @@ public class Yatzy {
     }
 
     public int yatzy() {
-        int[] occurrences = getOccurrences();
-
         return isAllDiceHaveTheSameNumber(occurrences) ? 50 : 0;
     }
 
@@ -48,17 +49,13 @@ public class Yatzy {
         return getScoreByCategory(DiceCategory.SIX.getCategory());
     }
 
-    public static int score_pair(int d1, int d2, int d3, int d4, int d5) {
-        int[] counts = new int[6];
-        counts[d1 - 1]++;
-        counts[d2 - 1]++;
-        counts[d3 - 1]++;
-        counts[d4 - 1]++;
-        counts[d5 - 1]++;
-        int at;
-        for (at = 0; at != 6; at++)
-            if (counts[6 - at - 1] >= 2)
-                return (6 - at) * 2;
+    public int scorePair() {
+        for (int i = this.occurrences.length - 1; i > 0; i--) {
+            if (isPlayerScoredOnePairOfMatchingDice(i)) {
+                return (i + 1) * 2;
+            }
+        }
+
         return 0;
     }
 
@@ -178,13 +175,13 @@ public class Yatzy {
             return 0;
     }
 
-    private int[] getOccurrences() {
-        int[] occurrences = new int[6];
+    private int[] computeOccurrences() {
+        int[] occurrencesTmp = new int[6];
         for (int die : dice) {
-            occurrences[die - 1]++;
+            occurrencesTmp[die - 1]++;
         }
 
-        return occurrences;
+        return occurrencesTmp;
     }
 
     private boolean isAllDiceHaveTheSameNumber(int[] occurrences) {
@@ -193,6 +190,10 @@ public class Yatzy {
 
     private int getScoreByCategory(int category) {
         return Arrays.stream(dice).filter(die -> die == category).sum();
+    }
+
+    private boolean isPlayerScoredOnePairOfMatchingDice(int i) {
+        return this.occurrences[i] >= 2;
     }
 }
 

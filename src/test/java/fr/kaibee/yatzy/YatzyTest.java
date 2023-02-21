@@ -65,10 +65,11 @@ public class YatzyTest {
     }
 
     @Test
-    public void one_pair() {
-        assertEquals(6, Yatzy.score_pair(3, 4, 3, 5, 6));
-        assertEquals(10, Yatzy.score_pair(5, 3, 3, 3, 5));
-        assertEquals(12, Yatzy.score_pair(5, 3, 6, 6, 5));
+    public void should_score_sum_of_the_two_highest_matching_dice_when_placed_on_pair() {
+        assertEquals(6, new Yatzy(3, 4, 3, 5, 6).scorePair());
+        assertEquals(10, new Yatzy(5, 3, 3, 3, 5).scorePair());
+        assertEquals(12, new Yatzy(5, 3, 6, 6, 5).scorePair());
+        assertEquals(12, new Yatzy(5, 6, 6, 6, 5).scorePair());
     }
 
     @Test
