@@ -86,18 +86,20 @@ public class YatzyTest {
     }
 
     @Test
-    public void three_of_a_kind() {
-        assertEquals(9, Yatzy.three_of_a_kind(3, 3, 3, 4, 5));
-        assertEquals(15, Yatzy.three_of_a_kind(5, 3, 5, 4, 5));
-        assertEquals(9, Yatzy.three_of_a_kind(3, 3, 3, 3, 5));
-        assertEquals(9, Yatzy.three_of_a_kind(3, 3, 3, 3, 3));
-
+    public void should_score_sum_of_three_dice_with_the_same_number_when_placed_on_three_of_kind() {
+        assertEquals(9, new Yatzy(3, 3, 3, 4, 5).scoreThreeOfKind());
+        assertEquals(15, new Yatzy(5, 3, 5, 4, 5).scoreThreeOfKind());
+        assertEquals(9, new Yatzy(3, 3, 3, 3, 5).scoreThreeOfKind());
+        assertEquals(9, new Yatzy(3, 3, 3, 3, 3).scoreThreeOfKind());
+        assertEquals(0, new Yatzy(3, 5, 4, 3, 6).scoreThreeOfKind());
     }
 
     @Test
-    public void four_of_a_knd() {
-        assertEquals(12, Yatzy.four_of_a_kind(3, 3, 3, 3, 5));
-        assertEquals(20, Yatzy.four_of_a_kind(5, 5, 5, 4, 5));
+    public void should_score_sum_of_four_dice_with_the_same_number_when_placed_on_four_of_kind() {
+        assertEquals(12, new Yatzy(3, 3, 3, 3, 5).scoreFourOfKind());
+        assertEquals(20, new Yatzy(5, 5, 5, 4, 5).scoreFourOfKind());
+        assertEquals(0, new Yatzy(5, 2, 2, 5, 5).scoreFourOfKind());
+        assertEquals(0, new Yatzy(5, 1, 4, 6, 3).scoreFourOfKind());
     }
 
     @Test

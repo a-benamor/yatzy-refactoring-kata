@@ -72,31 +72,23 @@ public class Yatzy {
         return isPlayerHasTwoPairsOfDiceWithTheSameNumber(numberOfMatchingPairs) ? score : 0;
     }
 
-    public static int four_of_a_kind(int _1, int _2, int d3, int d4, int d5) {
-        int[] tallies;
-        tallies = new int[6];
-        tallies[_1 - 1]++;
-        tallies[_2 - 1]++;
-        tallies[d3 - 1]++;
-        tallies[d4 - 1]++;
-        tallies[d5 - 1]++;
-        for (int i = 0; i < 6; i++)
-            if (tallies[i] >= 4)
-                return (i + 1) * 4;
+    public int scoreThreeOfKind() {
+        for (int i = 0; i < this.occurrences.length; i++) {
+            if (this.occurrences[i] >= 3) {
+                return (i + 1) * 3;
+            }
+        }
+
         return 0;
     }
 
-    public static int three_of_a_kind(int d1, int d2, int d3, int d4, int d5) {
-        int[] t;
-        t = new int[6];
-        t[d1 - 1]++;
-        t[d2 - 1]++;
-        t[d3 - 1]++;
-        t[d4 - 1]++;
-        t[d5 - 1]++;
-        for (int i = 0; i < 6; i++)
-            if (t[i] >= 3)
-                return (i + 1) * 3;
+    public int scoreFourOfKind() {
+        for (int i = 0; i < occurrences.length; i++) {
+            if (occurrences[i] >= 4) {
+                return (i + 1) * 4;
+            }
+        }
+
         return 0;
     }
 
