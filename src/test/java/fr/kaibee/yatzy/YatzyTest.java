@@ -15,12 +15,12 @@ public class YatzyTest {
     }
 
     @Test
-    public void yatzy_scores_50() {
+    public void should_score_50_when_all_dice_have_the_same_number() {
         int expected = 50;
-        int actual = Yatzy.yatzy(4, 4, 4, 4, 4);
+        int actual = new Yatzy(4, 4, 4, 4, 4).yatzy();
         assertEquals(expected, actual);
-        assertEquals(50, Yatzy.yatzy(6, 6, 6, 6, 6));
-        assertEquals(0, Yatzy.yatzy(6, 6, 6, 6, 3));
+        assertEquals(expected, new Yatzy(6, 6, 6, 6, 6).yatzy());
+        assertEquals(0, new Yatzy(6, 6, 6, 6, 3).yatzy());
     }
 
     @Test

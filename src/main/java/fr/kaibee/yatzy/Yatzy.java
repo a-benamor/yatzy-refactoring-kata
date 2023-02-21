@@ -18,14 +18,10 @@ public class Yatzy {
         return Arrays.stream(dice).sum();
     }
 
-    public static int yatzy(int... dice) {
-        int[] counts = new int[6];
-        for (int die : dice)
-            counts[die - 1]++;
-        for (int i = 0; i != 6; i++)
-            if (counts[i] == 5)
-                return 50;
-        return 0;
+    public int yatzy() {
+        int[] occurrences = getOccurrences();
+
+        return isAllDiceHaveTheSameNumber(occurrences) ? 50 : 0;
     }
 
     public int ones() {
@@ -180,6 +176,19 @@ public class Yatzy {
             return _2_at * 2 + _3_at * 3;
         else
             return 0;
+    }
+
+    private int[] getOccurrences() {
+        int[] occurrences = new int[6];
+        for (int die : dice) {
+            occurrences[die - 1]++;
+        }
+
+        return occurrences;
+    }
+
+    private boolean isAllDiceHaveTheSameNumber(int[] occurrences) {
+        return Arrays.stream(occurrences).anyMatch(occ -> occ == 5);
     }
 
     private int getScoreByCategory(int category) {
